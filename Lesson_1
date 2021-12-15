@@ -3,7 +3,7 @@ CREATE TABLE weather (
     temp_lo         int,           -- минимальная температура дня
     temp_hi         int,           -- максимальная температура дня
     prcp            real,          -- уровень осадков
-    date            date
+    date            date           -- записывается в формате 1997-11-27
 );
 
 CREATE TABLE cities (
@@ -20,5 +20,6 @@ INSERT INTO weather (date, city, temp_hi, temp_lo)
 	
 Select * FROM weather;
 
-SELECT city, (temp_hi+temp_lo)/2 AS temp_avg, date FROM weather;
+SELECT city, (temp_hi+temp_lo)/2 AS temp_avg, date FROM weather; 	-- возможно проведение различных операций с численными 
+								   	   значениями прямо внутри кода
 
