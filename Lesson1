@@ -22,3 +22,41 @@ Select * FROM weather;
 
 SELECT city, (temp_hi+temp_lo)/2 AS temp_avg, date FROM weather;
 
+SELECT * FROM weather w, cities c
+	 WHERE w.city = c.name;
+
+
+
+
+BEGIN;
+UPDATE accounts SET balance = balance - 100.00
+    WHERE name = 'Alice';
+SAVEPOINT my_savepoint;
+UPDATE accounts SET balance = balance + 100.00  	-- ошибочное действие... забыть его и использовать счёт Уолли
+    WHERE name = 'Bob';			
+ROLLBACK TO my_savepoint;				-- тут исправляем ошибку и откатываем к месту my_savepoint
+UPDATE accounts SET balance = balance + 100.00		-- тут исправляем на правильное действие
+    WHERE name = 'Wally';
+COMMIT;
+
+SELECT 38 / 5 AS Integer, 38 % 5 AS Remainder;  	-- % позволяет вычислить остаток при делении 38 на 5 (т.е. в Remainder будет 3)
+
+______________________________________________________________________________________________________________________
+SELECT ... FROM
+UPDATE ... SET 
+INSERT INTO ... VALUES
+
+То, на что ссылаемся - идентификаторы, имена
+UPDATE "my_table" SET "a" = 5; 			-- такая запись позволяет в именах таблиц или столбцов таблиц
+						   использовать в т.ч. select и пр. функции
+
+
+
+
+
+
+
+
+
+______________________________________________________________________________________________________________________
+
