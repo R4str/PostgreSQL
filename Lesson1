@@ -50,6 +50,12 @@ INSERT INTO ... VALUES
 UPDATE "my_table" SET "a" = 5; 			-- такая запись позволяет в именах таблиц или столбцов таблиц
 						   использовать в т.ч. select и пр. функции
 
+INNER JOIN / LEFT JOIN / RIGHT JOIN ... ON ... = ...
+CASE WHEN ... THEN ...	
+     WHEN ... THEN ...
+     ELSE ...
+END
+
 
 
 
@@ -59,4 +65,26 @@ UPDATE "my_table" SET "a" = 5; 			-- такая запись позволяет 
 
 
 ______________________________________________________________________________________________________________________
+ЗАДАЧА 41 НИФИГА НЕ ПОНИМАЮ!!!!
+
+WITH AllMakers (Makers, Prices) AS
+(SELECT p.maker, l.price FROM product p INNER JOIN laptop l ON p.model = l.model 
+UNION ALL
+SELECT p.maker, pc.price FROM product p INNER JOIN pc ON p.model = pc.model 
+UNION ALL
+SELECT p.maker, pr.price FROM product p INNER JOIN printer pr ON p.model = pr.model)
+
+SELECT Makers, 
+CASE WHEN (SELECT MIN(prices) FROM AllMakers GROUP BY Makers) IS NULL 
+THEN NULL
+ELSE (SELECT MAX(prices) FROM AllMakers GROUP BY Makers)
+END 
+FROM AllMakers
+GROUP BY Makers
+______________________________________________________________________________________________________________________
+
+
+
+
+
 
