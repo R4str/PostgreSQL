@@ -6,18 +6,19 @@ ________________________________________________________________________________
                             / IN / NOT IN (.., ..)       
 > ... WHERE ... = < > != ANY (SELECT ...)               -- По очереди подставляет и что-то должно соотноситься либо с 
                          ALL (SELECT ...)                  одним из (ANY) или всеми (ALL)
-
+> SELECT A FROM ... WHERE EXISTS (SELECT A FROM ...)	-- Выбирает значения, если существует такое A...
 > UPDATE ... SET 
 > INSERT INTO ... VALUES
 > UPDATE "my_table" SET "a" = 5; 			                  -- такая запись позволяет в именах таблиц или столбцов таблиц
 						                                                      использовать в т.ч. select и пр. функции
 > INNER JOIN / LEFT JOIN / RIGHT JOIN ... ON ... = ...
 > CASE WHEN ... THEN ...	
-     WHEN ... THEN ...
-     ELSE ...
-END
+       WHEN ... THEN ...
+       ELSE ...
+  END AS Name
+> SELECT ..., cast(avg(...) AS decimal (10, 2)) FROM ... GROUP BY ...	  -- cast позволяет преобразовать данные (даже выражение) в другой формат,
+									     в т.ч. с округление до 2 знаков после запятой и длиной в 10 знаков.
 > 
-
 
 
 
