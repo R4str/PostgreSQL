@@ -16,17 +16,13 @@ ________________________________________________________________________________
 
 > SELECT A FROM ... WHERE EXISTS (SELECT A FROM ...)	-- Выбирает значения, если существует такое A...
 _________________________________________________________________________________________________________________________________________________
+ОБЪЕДИНЕНИЯ ЗАПРОСОВ
 > SELECT ... FROM ... UNION (UNION ALL)			-- Позволяет присоединять строки из одного запроса к строкам из 
   SELECT ... FROM ... UNION ...				   другого запроса (все - UNION ALL, или удаляя дубликаты UNION)
 > SELECT ... FROM ... INTERSECT (EXCEPT)		-- Позволяет оставить только те строки, которые пересекаются в запросах /
   SELECT ... FROM ...					   или из строк первого запроса исключаются строки второго (EXCEPT)
-
 _________________________________________________________________________________________________________________________________________________
-> UPDATE ... SET 
-> INSERT INTO ... VALUES
-> UPDATE "my_table" SET "a" = 5; 			-- такая запись позволяет в именах таблиц или столбцов таблиц использовать 
-							   в т.ч. select и пр. функции
-
+ВСЕВОЗМОЖНЫЕ ДЖОИНЫ
 > INNER JOIN / LEFT JOIN / RIGHT JOIN ... ON ... = ...
 > CASE WHEN ... THEN ...	
        WHEN ... THEN ...
@@ -89,6 +85,34 @@ PI()			-- pi = 3.1415926...
 =			-- равно
 <>			-- не равно
 _________________________________________________________________________________________________________________________________________________
+ЗАПРОСЫ КОРРЕКТИРОВКИ ДАННЫХ
+> CREATE TABLE ...(... INT PRIMARY KEY AUTO_INCREMENT, ... VARCHAR(50), ... VARCHAR(30), ... DECIMAL(8, 2), ... INT);
+> INSERT INTO ... VALUES (..., ..., ...)							-- можно вставалять через , несколько строк
+> INSERT INTO book(title, author, amount) VALUES (..., ..., ...), (..., ..., ...), (), () ...   -- можно выбирать столбцы, куда вставляются значения
+> INSERT INTO book(title, author, amount) SELECT title, author, amount FROM supply		-- можно вставлять в таблицу селект из другой таблицы
+> INSERT INTO ...() SELECT ..., ..., ... FROM ... WHERE ...
+
+> UPDATE ...(таблица) SET значение WHERE условие для тех строк, которые изменяются 
+> UPDATE "my_table" SET "a" = 5; 			-- такая запись позволяет в именах таблиц или столбцов таблиц использовать 
+							   в т.ч. select и пр. функции
+> UPDATE book SET buy = IF(amount>buy, buy, amount), price = IF(buy=0,price*0.9,price);		-- обновление + IF с подстановкой
+> UPDATE book, supply 										-- обновление с данными из двух таблиц
+  SET book.amount=IF(book.title=supply.title, book.amount+supply.amount, book.amount),		   их надо связывать через WHERE
+      book.price=IF(book.title=supply.title, (book.price+supply.price)/2, book.price)
+  WHERE book.title=supply.title AND book.author=supply.author;
+
+> DELETE FROM ...										-- удаляет все строки из таблицы
+> DELETE FROM supply 										-- удаляет книги всех авторов, у которых в другой
+  WHERE author IN (SELECT author FROM book  GROUP BY author HAVING sum(amount)>10);		   таблице в сумме больше 10 книг
+
+> CREATE TABLE ... (... формат, ... формат, ... формат)
+> CREATE TABLE ordering AS 									-- создать таблицу, взяв отдельные значения из
+  SELECT author, title, (SELECT floor(avg(amount)) FROM book) AS amount				   другой таблицы с определенными условиями
+  FROM book WHERE amount < (SELECT avg(amount) FROM book)
+
+
+
+
 
 
 
