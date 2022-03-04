@@ -129,7 +129,9 @@ ________________________________________________________________________________
 ДАТА И ВРЕМЯ:
 DATEDIFF(datepart, startdate, enddate)    -- возвращает разницу во времени, обозначенном аргументом datepart, за период, указанный в аргументах 
 					     startdate и enddate; возвращает значение integer
-					     datepart может быть year (yy), quarter (qq), month (mm), day (dd) ...
+!!!ИЛИ!!!				     datepart может быть year (yy), quarter (qq), month (mm), day (dd) ...
+DATEDIFF(enddate, startdate)		  -- так в Stepik работает
+ 
 DATE_ADD(дата, INTERVAL число datepart)   -- к дате прибавляет указанное число, выраженное в днях, месяцах и пр. и возвращает новую дату. 
 	где datepart (использовать прописные буквы) – это день (DAY), месяц(MONTH), неделя(WEEK) и пр., 
   	    число – целое число,
