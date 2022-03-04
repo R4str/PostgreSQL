@@ -175,6 +175,7 @@ ON DELETE RESTRICT	-- отклоняет удаление строк в глав
 > DELETE FROM ...										-- удаляет все строки из таблицы
 > DELETE FROM supply 										-- удаляет книги всех авторов, у которых в другой
   WHERE author IN (SELECT author FROM book  GROUP BY author HAVING sum(amount)>10);		   таблице в сумме больше 10 книг
+  DELETE FROM A USING A INNER JOIN B ON ...							-- удаляет данные из связанных книг, нужно USING
 
 > CREATE TABLE ... (... формат, ... формат, ... формат)
 > CREATE TABLE ordering AS 									-- создать таблицу, взяв отдельные значения из
